@@ -3,27 +3,7 @@
 #include <thread>
 #include <iostream>
 
-class Inventory {
-private:
-    std::vector<int> items;
-    std::mutex mtx;
-
-public:
-    void put(int item) {
-        std::lock_guard<std::mutex> lock(mtx);
-        items.push_back(item);
-    }
-
-    int get() {
-        std::lock_guard<std::mutex> lock(mtx);
-        if (items.empty()) {
-            return -1; 
-        }
-        int item = items.back();
-        items.pop_back();
-        return item;
-    }
-};
+#include "Inventory.h"
 
 void addItems(Inventory& inventory, int start, int count) {
     for (int i = 0; i < count; ++i) {
